@@ -1,6 +1,11 @@
 package com.paulolopes.plvendas.service;
 
+import com.paulolopes.plvendas.dto.SaleSumDTO;
+
+import java.util.List;
+
 import com.paulolopes.plvendas.dto.SaleDTO;
+import com.paulolopes.plvendas.dto.SaleSuccessDTO;
 import com.paulolopes.plvendas.entities.Sale;
 import com.paulolopes.plvendas.repositories.SaleRepository;
 import com.paulolopes.plvendas.repositories.SellerRepository;
@@ -29,6 +34,16 @@ public class SaleService {
 		sellerRepository.findAll();
 		Page<Sale> result = repository.findAll(pageable);
 		return result.map(x -> new SaleDTO(x));
+	}
+
+	@Transactional(readOnly = true)
+	public List<SaleSumDTO> amountGroupedBySeller(){
+		return repository.amountGroupedBySeller();
+	}
+
+	@Transactional(readOnly = true)
+	public List<SaleSuccessDTO> successGroupedBySeller(){
+		return repository.successGroupedBySeller();
 	}
 	
 	
